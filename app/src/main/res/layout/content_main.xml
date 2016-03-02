@@ -129,4 +129,20 @@
             android:layout_marginTop="12dp"
             android:onClick="buttonClicked"/>
     </GridLayout>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_marginTop="45dp"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:text="Pause"
+        android:id="@+id/playback_button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="pausePlayback"
+        android:visibility="invisible"
+        android:elevation="6dp"
+        android:fontFamily="sans-serif-regular"
+        android:background="@color/colorAccent"/>
 </RelativeLayout>

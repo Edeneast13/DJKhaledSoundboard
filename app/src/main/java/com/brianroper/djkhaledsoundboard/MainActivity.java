@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,85 +18,90 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView mImageView1;
     private MediaPlayer mPlayer;
+    private Button mPlaybackButton;
 
     public void buttonClicked(View v){
 
-        int buttonId = v.getId();
+        int buttonId = v.getId(); //get which button was pressed
 
-        /*if(mPlayer.isPlaying()){
-
-            mPlayer.stop();
-        }*/
-
-        if(buttonId == R.id.ciroc1){
-
-            mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.song);
-
-            if(mPlayer.isPlaying()) {
-
-                mPlayer.stop();
-                mPlayer.reset();
-            }
-            else {
-
-                mPlayer.start();
-                Log.i("Id", buttonId + "");
-            }
+        if (mPlayer != null) {
+            checkIfAlreadyPlaying(); // see if sound is already playing
         }
 
-        else if(buttonId == R.id.ciroc2){
+        switch (buttonId) { //Switch case for choosing correct music based on button press
 
-            mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.song);
-            mPlayer.start();
-            Log.i("Id", buttonId + "");
+            case R.id.ciroc1: {
+                mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.accurate);
+            } break;
+
+            case R.id.ciroc2: {
+                mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.anotheronecut);
+            } break;
+
+            case R.id.ciroc3: {
+                mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.blessup);
+            } break;
+
+            case R.id.ciroc4: {
+                mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.breakfast);
+            } break;
+
+            case R.id.ciroc5: {
+                mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.changedalot);
+            } break;
+
+            case R.id.ciroc6: {
+                mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.cirocboi);
+            } break;
+
+            case R.id.ciroc7: {
+                mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.jewlery);
+            } break;
+
+            case R.id.ciroc8: {
+                mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.lion);
+            } break;
+
+            case R.id.ciroc9: {
+                mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.playyourself);
+            } break;
         }
+        playMusic();
+    }
 
-        else if(buttonId == R.id.ciroc3){
-
-            mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.song);
-            mPlayer.start();
-            Log.i("Id", buttonId + "");
+    public void checkIfAlreadyPlaying() {
+        if(mPlayer.isPlaying()) {
+            stopMusic();
         }
+    }
 
-        else if(buttonId == R.id.ciroc4){
+    public void stopMusic() {
+        mPlayer.release();
+    }
 
-            mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.song);
+    public void playMusic() {
+
+            mPlaybackButton.setText("Pause");
+            mPlaybackButton.setVisibility(View.VISIBLE);
             mPlayer.start();
-            Log.i("Id", buttonId + "");
-        }
 
-        else if(buttonId == R.id.ciroc5){
+           // long currentTime = System.currentTimeMillis();
+           // int lengthmPlayer.getDuration();
+    }
 
-            mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.song);
-            mPlayer.start();
-            Log.i("Id", buttonId + "");
-        }
+    public void pausePlayback(View v){ //pause/play button
 
-        else if(buttonId == R.id.ciroc6){
+        mPlaybackButton.setText("Pause");
 
-            mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.song);
-            mPlayer.start();
-            Log.i("Id", buttonId + "");
-        }
+        if(mPlayer.isPlaying()){
 
-        else if(buttonId == R.id.ciroc7){
-
-            mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.song);
-            mPlayer.start();
-            Log.i("Id", buttonId + "");
-        }
-
-        else if(buttonId == R.id.ciroc8){
-
-            mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.song);
-            mPlayer.start();
-            Log.i("Id", buttonId + "");
+            mPlaybackButton.setText("Play");
+            mPlayer.pause();
         }
         else{
 
-            mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.song);
+            mPlaybackButton.setText("Pause");
             mPlayer.start();
-            Log.i("Id", buttonId + "");
         }
     }
 
@@ -108,5 +114,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mImageView1 = (ImageView)findViewById(R.id.ciroc1);
+        mPlaybackButton = (Button)findViewById(R.id.playback_button);
     }
 }
